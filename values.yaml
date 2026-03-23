@@ -167,10 +167,5 @@ mimir:
         access_key_id: ${{ printf "{%s}" .Values.s3.credentials.accessKeyId.envVar }}
         secret_access_key: ${{ printf "{%s}" .Values.s3.credentials.secretAccessKey.envVar }}
 
-    limits:
-      max_global_series_per_user: 0
-      ingestion_rate: 0
-      ingestion_burst_size: 0
-
     activity_tracker:
       filepath: /data/activity.log
