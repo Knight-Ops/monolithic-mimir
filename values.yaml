@@ -19,8 +19,8 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 10001
+podSecurityContext:
+  fsGroup: 10001
 
 securityContext: {}
   # readOnlyRootFilesystem: true
@@ -73,6 +73,8 @@ s3:
   endpoint: s3.amazonaws.com
   bucketName: mimir-blocks
   region: us-east-1
+  # -- Use HTTP instead of HTTPS (for local/homelab S3 backends like MinIO or TrueNAS)
+  insecure: false
   accessKeyId: ""
   secretAccessKey: ""
   # -- Use an existing secret instead of inline credentials.
@@ -121,6 +123,7 @@ mimir:
           endpoint: {{ .Values.s3.endpoint }}
           bucket_name: {{ .Values.s3.bucketName }}
           region: {{ .Values.s3.region }}
+          insecure: {{ .Values.s3.insecure }}
           access_key_id: ${{ printf "{%s}" .Values.s3.credentials.accessKeyId.envVar }}
           secret_access_key: ${{ printf "{%s}" .Values.s3.credentials.secretAccessKey.envVar }}
 
@@ -164,6 +167,7 @@ mimir:
         endpoint: {{ .Values.s3.endpoint }}
         bucket_name: {{ .Values.s3.bucketName }}
         region: {{ .Values.s3.region }}
+        insecure: {{ .Values.s3.insecure }}
         access_key_id: ${{ printf "{%s}" .Values.s3.credentials.accessKeyId.envVar }}
         secret_access_key: ${{ printf "{%s}" .Values.s3.credentials.secretAccessKey.envVar }}
 
