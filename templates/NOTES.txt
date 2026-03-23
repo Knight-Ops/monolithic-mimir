@@ -1,0 +1,15 @@
+Grafana Mimir has been deployed in monolithic mode.
+
+To access the Mimir HTTP API:
+
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ include "monolithic-mimir.fullname" . }} 8080:{{ .Values.service.httpPort }}
+
+Then visit http://localhost:8080/ready to check health.
+
+To push metrics via remote write:
+
+  http://{{ include "monolithic-mimir.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.httpPort }}/api/v1/push
+
+To query metrics (Prometheus-compatible):
+
+  http://{{ include "monolithic-mimir.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.httpPort }}/prometheus

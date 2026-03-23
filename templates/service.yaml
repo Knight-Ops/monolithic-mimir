@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "monolithic-mimir.fullname" . }}
+  labels:
+    {{- include "monolithic-mimir.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.grpcPort }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    - port: {{ .Values.service.memberlistPort }}
+      targetPort: memberlist
+      protocol: TCP
+      name: memberlist
+  selector:
+    {{- include "monolithic-mimir.selectorLabels" . | nindent 4 }}
