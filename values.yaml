@@ -138,28 +138,24 @@ mimir:
       data_dir: /data/compactor
       sharding_ring:
         kvstore:
-          store: memberlist
+          store: inmemory
 
     distributor:
       ring:
         kvstore:
-          store: memberlist
+          store: inmemory
 
     ingester:
       ring:
         kvstore:
-          store: memberlist
+          store: inmemory
         replication_factor: 1
 
     store_gateway:
       sharding_ring:
         replication_factor: 1
         kvstore:
-          store: memberlist
-
-    memberlist:
-      join_members:
-        - {{ include "monolithic-mimir.fullname" . }}-headless:7946
+          store: inmemory
 
     ruler_storage:
       backend: s3
