@@ -167,5 +167,8 @@ mimir:
         access_key_id: ${{ printf "{%s}" .Values.s3.credentials.accessKeyId.envVar }}
         secret_access_key: ${{ printf "{%s}" .Values.s3.credentials.secretAccessKey.envVar }}
 
+    limits:
+      compactor_blocks_retention_period: 60d
+
     activity_tracker:
       filepath: /data/activity.log
